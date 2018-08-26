@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\MyBook.cs" />
+    <Compile Include="DTO\MyBookExtended.cs" />
+    <Compile Include="DTO\MyUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IBaseRepository.cs" />
     <Compile Include="Repositories\IBookRepository.cs" />

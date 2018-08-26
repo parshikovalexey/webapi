@@ -1,7 +1,7 @@
 ﻿using BookApp.Helper;
+using Interfaces.DTO;
 using Interfaces.Repositories;
 using Interfaces.Services;
-using Models.DomainModels;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
@@ -18,14 +18,13 @@ namespace BookApp.Controllers
     [EnableCors(origins: "*", headers: "accept,Auth-Key", methods: "*")]
     public class UserController : ApiController
     {
-        private IBookRepository BookRepository;
+      // private IBookRepository BookRepository;
         private IBookService BookService;
         private IUserService UserService;
 
-        public UserController() {
-        }
-        public UserController(IBookRepository bookRepository, IUserService userService, IBookService bookService) {
-            BookRepository = bookRepository;
+       
+        public UserController( IUserService userService, IBookService bookService) {
+  //          BookRepository = bookRepository;
             UserService = userService;
             BookService = bookService;
         }
@@ -48,7 +47,7 @@ namespace BookApp.Controllers
 
         [HttpPost]
         [Route("CreateUser")]
-        public HttpResponseMessage SaveUser([FromBody]User user) {
+        public HttpResponseMessage SaveUser([FromBody]MyUser user) {
             if (user == null)
                 throw new APIException() {
                     ErrorCode = (int) HttpStatusCode.BadRequest,
@@ -64,7 +63,7 @@ namespace BookApp.Controllers
 
         [HttpPut]
         [Route("UpdateUser")]
-        public HttpResponseMessage UpdateUser([FromBody]User user) {
+        public HttpResponseMessage UpdateUser([FromBody]MyUser user) {
             if (user == null)
                 throw new APIException() {
                     ErrorCode = (int) HttpStatusCode.BadRequest,
@@ -100,7 +99,7 @@ namespace BookApp.Controllers
 
         [HttpPost]
         [Route("CreateUserBook")]
-        public HttpResponseMessage SaveBook([FromUri]Guid userId, [FromBody]Book book) {
+        public HttpResponseMessage SaveBook([FromUri]Guid userId, [FromBody]MyBook book) {
             if (book == null)
                 throw new APIException() {
                     ErrorCode = (int) HttpStatusCode.BadRequest,
@@ -113,9 +112,9 @@ namespace BookApp.Controllers
                     ErrorDescription = "Bad Request. Provide valid userId guid. Can't be empty guid.",
                     HttpStatus = HttpStatusCode.BadRequest
                 };
-            BookRepository.Add(book);
-            BookRepository.SaveChanges();
-            var result = BookRepository.GetBookByID(book.Id);
+            BookService.AddBook(book);
+        //    BookService.SaveChanges();
+            var result = BookService.GetBookById(book.Id);
             if (result != null)
                 return Request.CreateResponse(HttpStatusCode.OK, result, JsonFormatter);
             else

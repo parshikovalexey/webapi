@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Interfaces.Repositories {
-    public interface IBookRepository : IBaseRepository<Book, long> {
+    public interface IBookRepository : IBaseRepository<Book, Guid> {
         IQueryable<BookExtended> GetBooksByUserId(Guid userId);
         Book GetBookByID(Guid bookId);
 

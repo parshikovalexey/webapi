@@ -11,8 +11,17 @@ using Unity;
 using Unity.Resolution;
 
 namespace Repository.BaseRepository {
+
+    /*
+     * Changed 
+     * IBaseRepository<TDomainClass, long>
+     * to
+     * IBaseRepository<TDomainClass, Guid>
+     * 
+     * and changed Find(long id) to Find(Guid id)
+     */
     [Serializable]
-    public abstract class BaseRepository<TDomainClass> : IBaseRepository<TDomainClass, long>
+    public abstract class BaseRepository<TDomainClass> : IBaseRepository<TDomainClass, Guid>
        where TDomainClass : class {
         #region Private
         private readonly IUnityContainer container;
@@ -50,9 +59,11 @@ namespace Repository.BaseRepository {
         /// <summary>
         /// Find Entity by Id
         /// </summary>
-        public virtual TDomainClass Find(long id) {
+        public virtual TDomainClass Find(Guid id) {
             return DbSet.Find(id);
         }
+
+       
         /// <summary>
         /// Get All Entites 
         /// </summary>

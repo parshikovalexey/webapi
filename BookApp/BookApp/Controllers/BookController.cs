@@ -1,6 +1,6 @@
 ﻿using BookApp.Helper;
+using Interfaces.DTO;
 using Interfaces.Services;
-using Models.DomainModels;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
@@ -43,7 +43,7 @@ namespace BookApp.Controllers
 
         [HttpPost]
         [Route("CreateBook")]
-        public HttpResponseMessage SaveBook([FromBody]Book book) {
+        public HttpResponseMessage SaveBook([FromBody]MyBook book) {
             if (book == null)
                 throw new APIException() {
                     ErrorCode = (int) HttpStatusCode.BadRequest,
@@ -59,7 +59,7 @@ namespace BookApp.Controllers
 
         [HttpPut]
         [Route("UpdateBook")]
-        public HttpResponseMessage UpdateBook([FromBody]Book book) {
+        public HttpResponseMessage UpdateBook([FromBody]MyBook book) {
             if (book == null)
                 throw new APIException() {
                     ErrorCode = (int) HttpStatusCode.BadRequest,
@@ -82,14 +82,15 @@ namespace BookApp.Controllers
                     ErrorDescription = "Bad Request. Provide valid bookId guid. Can't be empty guid.",
                     HttpStatus = HttpStatusCode.BadRequest
                 };
-            var book = BookService.GetBookById(bookId);
-            if (book != null) {
-                var result = BookService.DeleteBook(book);
+         //   var myBbook = BookService.GetBookById(bookId);
+            if (BookService.BookIdExist(bookId)) {
+                var result = BookService.DeleteBook(bookId);
                 if (result)
                     return Request.CreateResponse(HttpStatusCode.OK, "Book was deleted", JsonFormatter);
                 else
                     throw new APIDataException(3, "Error Deleting Book", HttpStatusCode.NotFound);
-            } else
+            } 
+        else
                 throw new APIDataException(1, "No book found", HttpStatusCode.NotFound);
         }
 

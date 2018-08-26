@@ -1,4 +1,5 @@
-﻿using Models.DomainModels;
+﻿using Interfaces.DTO;
+using Models.DomainModels;
 using Models.ExtendedModels;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace Interfaces.Services {
     public interface IBookService {
-        Book GetBookById(Guid bookId);
-        IEnumerable<BookExtended> GetBooksByUserId(Guid userId);
-        Book AddBook(Book book);
-        Book UpdateBook(Book book);
-        bool DeleteBook(Book book);
+        MyBook GetBookById(Guid bookId);
+        IEnumerable<MyBookExtended> GetBooksByUserId(Guid userId);
+        MyBook AddBook(MyBook book);
+        MyBook UpdateBook(MyBook book);
+        bool DeleteBook(Guid bookId);
+        bool BookIdExist(Guid bookId);
     }
 }

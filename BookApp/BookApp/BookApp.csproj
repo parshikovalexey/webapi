@@ -395,10 +395,6 @@
       <Project>{4B803268-76F5-47CD-99C7-AE2C1A2FC398}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{0792b3ab-0969-4f1c-b14a-b110980b0079}</Project>
-      <Name>Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{52ef1e27-c45a-4d58-8fdc-04052c6f2a96}</Project>
       <Name>Repository</Name>
