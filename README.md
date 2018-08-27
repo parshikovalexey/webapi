@@ -10,3 +10,47 @@ Please do not use more than max. a couple of hours on this. The most important i
 5. Make a pull request with all your changes.
 ----
 #### General thoughts/suggestions/ideas can be added here:
+
+Brief resume of changes and suggestions that we can discuss further.
+
+Architecture Change : 
+
+- add DTO objects (MyBook, MyUser, MyExtendedBook) and removed entities from WebApi (BookApp) project.
+Advantages:
+	- no more reference of database in controllers
+	- Database is no more at the center of the application 
+	- More control over data sent and returned to/by the controllers
+
+
+Small Changes : 
+- BaseRepository<TDomain,long> has been changed to BaseRepository<TDomain, Guid> 
+and Find(long id) has been changed to Find(Guid id)
+We can now use  BookRepository.Find(guid) to retrieve book by id
+
+- Remove bookRepository from  BookController, and use the BookService method instead (e.g. AddBook())
+
+- Remove BookExtended object property 
+ public IEnumerable<BookExtended> MoreUserBooks { get; set; }
+ The problem here is to reference a list of the same Object(BookExtended)
+ We could have BookExtended object having a list of Book 
+ or
+ removing the IEnumerable<BookExtended> MoreUserBooks { get; set; } and for example  calling IEnumerable<BookExtended> GetUsersBook(userId) returning a list of BookExtended
+ 
+ 
+ Suggestions:
+
+The object Book, User, BookExtended could be improved
+
+For example :
+- Book do not need User object has it already has userId property.
+
+- User could have a username property, 
+user could also have a userType if we want to have different type of user (admin, author)
+
+- We could secure and control better the application for example
+we could add a Basic authentication for every request,
+we could know who is the user making the request and what are is rights 
+
+- we could add Swagger to easily test our API 
+  
+ 

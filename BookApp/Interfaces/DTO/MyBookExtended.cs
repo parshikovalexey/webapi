@@ -1,12 +1,13 @@
-﻿using Models.DomainModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.ExtendedModels {
-    public class BookExtended {
+namespace Interfaces.DTO
+{
+    public class MyBookExtended
+    {
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
@@ -15,6 +16,6 @@ namespace Models.ExtendedModels {
         public Guid UserId { get; set; }
         public string UserName { get; set; }
 
-      //  public IEnumerable<BookExtended> MoreUserBooks { get; set; }
+        // public IEnumerable<MyBook> MoreUserBooks { get; set; }
     }
 }
