@@ -12,3 +12,7 @@ Below is a few tasks that we have prepared for you. We only expect you to spend 
 ----
 
 #### Add general thoughts/suggestions/ideas here:
+1. We need more separation of duties between the books domain and the users domain. Some initial work are alredy done in the code for repositories and services, next corresponding changes must be done in API controllers, like moving the code for accessing information about books - from UserController to BookController.
+2. We need to simplify data models (dropping BookExtended.MoreUserBooks?), and maybe even create separate models for representing data in repositories and for representing responses in the API.
+3. Scaffolding introduced some code for authentication. We will probably need some form of authentication for using API, so the implementation for this must be properly done.
+
