@@ -10,6 +10,7 @@ namespace Interfaces.Services {
     public interface IBookService {
         Book GetBookById(Guid bookId);
         IEnumerable<BookExtended> GetBooksByUserId(Guid userId);
+        IEnumerable<BookExtended> GetMoreBooksByUserIdItemId(Guid userId, Guid itemId);
         Book AddBook(Book book);
         Book UpdateBook(Book book);
         bool DeleteBook(Book book);

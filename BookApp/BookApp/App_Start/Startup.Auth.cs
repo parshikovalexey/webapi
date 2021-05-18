@@ -32,6 +32,8 @@ namespace BookApp
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Configure the application for OAuth based flow
+            // TODO: The decision must be made if we want to use AspNet.Identity at all
+            // or to use an external OAuth provider.
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
             {

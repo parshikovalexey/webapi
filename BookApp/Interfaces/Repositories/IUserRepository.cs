@@ -10,6 +10,5 @@ namespace Interfaces.Repositories {
     public interface IUserRepository : IBaseRepository<User, long> {
         User GetUserById(Guid userId);
         User GetUserByName(string name);
-        IEnumerable<BookExtended> GetMoreUserBooks(Guid userId, Guid bookId);
     }
 }

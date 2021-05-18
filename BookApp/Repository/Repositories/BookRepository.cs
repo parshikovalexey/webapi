@@ -34,5 +34,21 @@ namespace Repository.Repositories {
             );
         }
 
+        public IQueryable<BookExtended> GetMoreUserBooks(Guid userId, Guid bookId)
+        {
+            var books = GetAll().Where(b => b.UserId == userId);
+            return books.Where(b => b.Id != bookId).Select(b =>
+            new BookExtended()
+            {
+                Author = b.Author,
+                Content = b.Content,
+                CreatedDatetime = b.CreatedDatetime,
+                Id = b.Id,
+                Title = b.Title,
+                UserId = b.UserId,
+                UserName = b.User.FirstName + " " + b.User.LastName
+            }
+                );
+        }
     }
 }

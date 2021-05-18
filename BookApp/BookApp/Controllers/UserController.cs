@@ -139,6 +139,23 @@ namespace BookApp.Controllers
         }
 
 
+        [HttpGet]
+        [Route("GetMoreUserBooks")]
+        public HttpResponseMessage GetMoreUserBooks(Guid userId, Guid bookId)
+        {
+            if (userId == null || userId == Guid.Empty || bookId == null || bookId == Guid.Empty)
+                throw new APIException()
+                {
+                    ErrorCode = (int)HttpStatusCode.BadRequest,
+                    ErrorDescription = "Bad Request. Provide valid userId guid and bookId guid. Can't be empty guid.",
+                    HttpStatus = HttpStatusCode.BadRequest
+                };
+            var books = BookService.GetMoreBooksByUserIdItemId(userId, bookId);
+            if (books != null)
+                return Request.CreateResponse(HttpStatusCode.OK, books, JsonFormatter);
+            else
+                throw new APIDataException(1, "No books found", HttpStatusCode.NotFound);
+        }
 
         protected JsonMediaTypeFormatter JsonFormatter {
             get {

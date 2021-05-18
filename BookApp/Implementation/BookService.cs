@@ -11,11 +11,9 @@ using Interfaces.Repositories;
 namespace Implementation {
     public class BookService : IBookService {
         private readonly IBookRepository BookRepository;
-        private readonly IUserRepository UserRepository;
 
-        public BookService(IBookRepository bookRepository, IUserRepository userRepository) {
+        public BookService(IBookRepository bookRepository) {
             BookRepository = bookRepository;
-            UserRepository = userRepository;
         }
 
 
@@ -36,13 +34,13 @@ namespace Implementation {
         }
 
         public IEnumerable<BookExtended> GetBooksByUserId(Guid userId) {
-            var books = BookRepository.GetBooksByUserId(userId).ToList();
-            var result = new List<BookExtended>();
-            foreach (var item in books) {
-                item.MoreUserBooks = UserRepository.GetMoreUserBooks(item.UserId, item.Id);
-                result.Add(item);
-            }
-            return result;
+            // We need a lightweight method for getting all books for a user
+            return BookRepository.GetBooksByUserId(userId).ToList();
+        }
+
+        public IEnumerable<BookExtended> GetMoreBooksByUserIdItemId(Guid userId, Guid itemId)
+        {
+            return BookRepository.GetMoreUserBooks(userId, itemId).ToList();
         }
 
         public Book UpdateBook(Book book) {

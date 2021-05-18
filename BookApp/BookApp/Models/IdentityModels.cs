@@ -23,8 +23,9 @@ namespace BookApp.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            // TODO: If we want to use AspNet.Identity, we must configure a correct DB connection
         }
-        
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
